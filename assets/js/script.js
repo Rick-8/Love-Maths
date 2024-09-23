@@ -12,11 +12,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 let gametype = this.getAttribute("data-type");
                 alert(`You Clicked ${gametype}`);
             }
-        })
+        });
     }
-})
+});
 
+/** 
+ * The main game "loop", called when the script is first loaded
+ * and after the users answer has been processed  
+ */
 function rungame() {
+    // Creates two random numbers between 1 and 25
+let num1 = math.floor(Math.random() * 25) + 1;
+let num2 = math.floor(Math.random() * 25) + 1;
 
 }
 
