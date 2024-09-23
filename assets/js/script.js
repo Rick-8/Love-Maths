@@ -27,6 +27,7 @@ let num2 = math.floor(Math.random() * 25) + 1;
 
 }
 
+
 function checkAnswer() {
 
 }
