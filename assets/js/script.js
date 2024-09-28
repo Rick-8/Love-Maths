@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+    document.getElementById("answer-box").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             checkAnswer();
         }
@@ -33,9 +33,18 @@ function runGame(gameType) {
     document.getElementById("answer-box").value = "";
     document.getElementById("answer-box").focus();
 
-    // Creates two random numbers between 1 and 25
-    let num1 = Math.floor(Math.random() * 25) + 1;
-    let num2 = Math.floor(Math.random() * 25) + 1;
+    let num1, num2;
+
+    if (gameType === "division") {
+        // For division, the first number (num1) is a multiple of the second number (num2)
+        num2 = Math.floor(Math.random() * 12) + 1; // num2 between 1 and 12
+        num1 = num2 * (Math.floor(Math.random() * 12) + 1); // num1 is a multiple of num2
+    } else {
+        // For other operations, generate random numbers between 1 and 25
+        num1 = Math.floor(Math.random() * 25) + 1;
+        num2 = Math.floor(Math.random() * 25) + 1;
+    }
+
 
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
@@ -43,6 +52,8 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2);
+    } else if (gameType === "division") {
+        displayDivisionQuestion(num1, num2);
     } else {
         alert(`unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -80,7 +91,9 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
-    } else {
+    } else if (operator === "/") {
+        return [operand1 / operand2, "division"];
+    }else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplimented operator ${operator}. Aborting!`;
     }
@@ -121,4 +134,10 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+}
+
+function displayDivisionQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
 }
